@@ -378,7 +378,7 @@ class Consumer extends BaseRabbitMQ
                 $msg->setBody(call_user_func($this->deserializer, $msg->getBody()));
             }
             // process message and return the result code back to broker
-            $processFlag = $callback($msg);
+            $processFlag = $callback($msg, $queueName);
             $this->sendResult($msg, $processFlag);
             \Yii::$app->rabbitmq->trigger(
                 RabbitMQConsumerEvent::AFTER_CONSUME,
